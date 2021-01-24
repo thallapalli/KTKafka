@@ -22,7 +22,11 @@ public class ProducerDemo {
 		props.setProperty(ProducerConfig.RETRIES_CONFIG, Integer.toString(Integer.MAX_VALUE));
 		props.setProperty(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, "5");//kafka 2.0 >1.1 keep 5 ortherwise 1
 		
+		//high throughput producer
 		
+		props.setProperty(ProducerConfig.COMPRESSION_TYPE_CONFIG, "snapy");
+		props.setProperty(ProducerConfig.LINGER_MS_CONFIG, "20");
+		props.setProperty(ProducerConfig.BATCH_SIZE_CONFIG, Integer.toString(32*1024));//32 KB size
 		
 		
 
