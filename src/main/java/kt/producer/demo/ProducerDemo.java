@@ -16,9 +16,20 @@ public class ProducerDemo {
 		props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootSrapServer);
 		props.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 		props.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+		//create  safe producer 
+		props.setProperty(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, "true");
+		props.setProperty(ProducerConfig.ACKS_CONFIG, "all");
+		props.setProperty(ProducerConfig.RETRIES_CONFIG, Integer.toString(Integer.MAX_VALUE));
+		props.setProperty(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, "5");//kafka 2.0 >1.1 keep 5 ortherwise 1
+		
+		
+		
+		
 
 		// Create Producer
 		KafkaProducer<String, String> KafkaProducer = new KafkaProducer<String, String>(props);
+		
+		
 
 		// Send data
 		ProducerRecord<String, String> record = new ProducerRecord<String, String>("first_topic", "hello world");
